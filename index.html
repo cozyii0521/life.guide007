@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>強者大腦：3天破解健身阻力的行為設計手冊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 300px;
+        }
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .step-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 列印專用 CSS 優化 */
+        @media print {
+            .no-print { display: none !important; }
+            .step-content { display: block !important; page-break-after: always; }
+            body { background-color: white !important; }
+            .card-shadow { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            main { max-width: 100% !important; padding: 0 !important; }
+            .chart-container { max-height: 250px !important; }
+            nav, footer { display: none !important; }
+            .next-step-btn { display: none !important; }
+        }
+    </style>
+    <!-- Chosen Palette: Wellness Teal & Deep Slate -->
+    <!-- Application Structure Plan: 
+         - 資訊架構：採用線性引導結構，將內容分為「願景導言」、「現狀診斷」、「行為設計」與「實踐挑戰」。
+         - 交互流程：在每個區塊底部加入「下一步」按鈕，確保入門使用者不會迷失方向，能一步步完成所有心理練習。
+         - 視覺回饋：使用 Chart.js 動態轉化的甜甜圈圖，讓使用者親眼看見「能量轉移」的效果。
+         - 轉化路徑：所有環節最終指向進階課程連結，實現從內容到產品的商業閉環。
+    -->
+    <!-- Visualization & Content Choices:
+         - 心理狀態對比 -> 目標：告知與教育 -> Chart.js 甜甜圈圖 -> 使用者執行轉念後，JS 觸發圖表占比變動，展示影響圈的擴大。
+         - ABC 健身配方 -> 目標：組織思維 -> 互動式選單與文字輸入 -> 點擊生成後動態顯示深色背景的「宣言卡片」，增強視覺張力。
+         - 3天挑戰進度 -> 目標：改變行為 -> 勾選清單 (Checklist) -> 透過 JS 動態移除獎盃的灰色濾鏡，模擬多巴胺獎勵機制。
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navigation / Progress -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-slate-800">🧠 強者大腦</span>
+                </div>
+                <div class="flex items-center space-x-2 md:space-x-4 text-xs md:text-sm font-medium text-slate-500">
+                    <button onclick="switchTab('intro')" class="nav-btn hover:text-teal-600 transition" id="btn-intro">導言</button>
+                    <button onclick="switchTab('diagnosis')" class="nav-btn hover:text-teal-600 transition" id="btn-diagnosis">1.心理診斷</button>
+                    <button onclick="switchTab('design')" class="nav-btn hover:text-teal-600 transition" id="btn-design">2.行為設計</button>
+                    <button onclick="switchTab('maintain')" class="nav-btn hover:text-teal-600 transition" id="btn-maintain">3.挑戰</button>
+                    <button onclick="exportPDF()" class="bg-slate-800 text-white px-2 py-1 md:px-3 md:py-1 rounded-lg hover:bg-teal-600 transition">匯出 PDF</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8">
+
+        <!-- SECTION: INTRO -->
+        <section id="intro" class="step-content active">
+            <div class="text-center py-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-6 leading-tight">
+                    破解健身阻力的<br><span class="text-teal-500">行為設計手冊</span>
+                </h1>
+                <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    這份手冊不只是讀物，它是一個「心理輔助工具」。我們將引導你運用柯維的<strong>效能原則</strong>與福格的<strong>微習慣模型</strong>，重新設定你大腦的運動迴路。
+                </p>
+                <div class="no-print">
+                    <button onclick="switchTab('diagnosis')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transform transition hover:scale-105 duration-200">
+                        點擊開始行為設計 👉
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                <div class="bg-white p-6 rounded-xl border border-slate-100 card-shadow">
+                    <div class="text-3xl mb-3">📍</div>
+                    <h3 class="font-bold text-lg mb-2">專注影響圈</h3>
+                    <p class="text-slate-500 text-sm">停止為「體重」焦慮，轉向你今天能控制的小事。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-100 card-shadow">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="font-bold text-lg mb-2">降低門檻</h3>
+                    <p class="text-slate-500 text-sm">利用 B=MAP 讓運動變得比「刷手機」更容易。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-100 card-shadow">
+                    <div class="text-3xl mb-3">💎</div>
+                    <h3 class="font-bold text-lg mb-2">情感存款</h3>
+                    <p class="text-slate-500 text-sm">透過「慶祝」獲取 Shine 感覺，讓自律變成成癮。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STEP 1 DIAGNOSIS (COVEY) -->
+        <section id="diagnosis" class="step-content">
+            <div class="bg-white rounded-2xl p-8 card-shadow">
+                <div class="border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800">1. 心理診斷：停止內耗</h2>
+                    <p class="text-slate-500 mt-2">核心觀念：焦慮來自無法控制的事，效能來自專注當下。</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-8 mb-10">
+                    <div class="w-full md:w-1/2">
+                        <p class="text-slate-700 mb-6 leading-relaxed">
+                            柯維（Covey）發現，大多數人的壓力來自於「關注圈」（在意那些你改不了的事）。<br><br>
+                            要磨利你的鋸子，你必須將能量回收至<strong>影響圈</strong>。
+                        </p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 no-print">
+                            <h4 class="font-bold text-slate-700 mb-4">🖊️ 轉化練習：</h4>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">你對身材最擔心的事 (關注圈):</label>
+                            <input type="text" id="worryInput" placeholder="例如：體重一直沒變" class="w-full p-2 mb-4 border rounded shadow-sm focus:ring-2 focus:ring-teal-500 text-sm">
+                            
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-1">今天 100% 能做的一個動作 (影響圈):</label>
+                            <input type="text" id="actionInput" placeholder="例如：晚餐不喝含糖飲料" class="w-full p-2 mb-4 border rounded shadow-sm focus:ring-2 focus:ring-teal-500 text-sm">
+                            
+                            <button onclick="updateChart()" class="w-full bg-slate-800 text-white py-2 rounded font-bold hover:bg-slate-700 transition">
+                                執行典範轉移 🔄
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 flex flex-col items-center">
+                        <div class="chart-container">
+                            <canvas id="coveyChart"></canvas>
+                        </div>
+                        <p id="chartCaption" class="text-center text-xs text-slate-400 mt-4 leading-tight">目前心理能量分配：焦慮佔據了大部分空間。</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-4 border-t no-print">
+                    <button onclick="switchTab('design')" class="next-step-btn bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow transition flex items-center">
+                        下一頁：行為設計 <span class="ml-2">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STEP 2 DESIGN (FOGG) -->
+        <section id="design" class="step-content">
+            <div class="bg-white rounded-2xl p-8 card-shadow">
+                <div class="border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800">2. 行為設計：ABC 配方</h2>
+                    <p class="text-slate-500 mt-2">核心觀念：B = MAP (動機不穩時，就讓事情變簡單)</p>
+                </div>
+
+                <p class="text-slate-700 mb-8 leading-relaxed text-center italic">
+                    「不要想著去健身房 1 小時，先想著如何讓大腦『無法拒絕』開始。」
+                </p>
+
+                <div class="bg-teal-50 p-6 rounded-xl border border-teal-100 mb-8 no-print">
+                    <h3 class="text-xl font-bold text-teal-800 mb-6 text-center">自訂你的強者配方</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-teal-900 mb-1">A (Anchor) 錨點：完成什麼舊習慣後？</label>
+                            <input type="text" id="anchorInput" value="刷完牙後" class="w-full p-3 border border-teal-200 rounded bg-white text-sm focus:ring-2 focus:ring-teal-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-teal-900 mb-1">B (Behavior) 微行為：30秒內能做完的小事</label>
+                            <input type="text" id="tinyBehaviorInput" placeholder="例如：做 2 下深蹲" class="w-full p-3 border border-teal-200 rounded text-sm focus:ring-2 focus:ring-teal-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-teal-900 mb-1">C (Celebration) 慶祝方式：獲得 Shine 感覺</label>
+                            <input type="text" id="celebrationInput" placeholder="例如：握拳說「太棒了」" class="w-full p-3 border border-teal-200 rounded text-sm focus:ring-2 focus:ring-teal-500">
+                        </div>
+                        <button onclick="generateRecipe()" class="w-full bg-teal-500 text-white font-bold py-3 rounded shadow-md hover:bg-teal-600 transition transform active:scale-95">
+                            查看我的專屬宣言卡 ✨
+                        </button>
+                    </div>
+                </div>
+
+                <div id="recipeCard" class="bg-slate-800 text-white p-8 rounded-xl shadow-2xl text-center hidden mb-10">
+                    <h4 class="text-xs text-teal-400 font-bold uppercase tracking-widest mb-4">My Habit Formula</h4>
+                    <p class="text-xl md:text-2xl leading-relaxed italic mb-4">
+                        「當我 <span id="resAnchor" class="text-yellow-400 font-bold underline decoration-yellow-400/30"></span>，<br>
+                        我會立刻 <span id="resBehavior" class="text-yellow-400 font-bold underline decoration-yellow-400/30"></span>，<br>
+                        然後我會 <span id="resCelebration" class="text-yellow-400 font-bold underline decoration-yellow-400/30"></span>！」
+                    </p>
+                    <p class="text-[10px] text-slate-500 mt-4">這張卡片代表你對大腦的重新設定。</p>
+                </div>
+
+                <div class="flex justify-between pt-4 border-t no-print">
+                    <button onclick="switchTab('diagnosis')" class="text-slate-400 hover:text-slate-600 flex items-center">
+                        <span class="mr-1">←</span> 回到上一步
+                    </button>
+                    <button onclick="switchTab('maintain')" class="next-step-btn bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow transition flex items-center">
+                        下一頁：啟動挑戰 <span class="ml-2">→</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STEP 3 CHALLENGE (SHARPEN THE SAW) -->
+        <section id="maintain" class="step-content">
+            <div class="bg-white rounded-2xl p-8 card-shadow">
+                <div class="border-b pb-4 mb-6 text-center">
+                    <h2 class="text-2xl font-bold text-slate-800">3. 效能維護：3 天啟動挑戰</h2>
+                    <p class="text-slate-500 mt-2 text-sm">核心觀念：磨利你的鋸子 (Sharpen the Saw)</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-10">
+                    <div class="space-y-4">
+                        <p class="text-slate-600 text-sm mb-4">請連續三天執行你的 ABC 配方，並在完成後點擊勾選：</p>
+                        <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-teal-400 transition cursor-pointer">
+                            <input type="checkbox" id="d1" class="w-6 h-6 text-teal-600 rounded" onchange="updateTrophy()">
+                            <label for="d1" class="ml-4 font-medium text-slate-700 cursor-pointer text-sm">Day 1：建立迴路 (執行配方)</label>
+                        </div>
+                        <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-teal-400 transition cursor-pointer">
+                            <input type="checkbox" id="d2" class="w-6 h-6 text-teal-600 rounded" onchange="updateTrophy()">
+                            <label for="d2" class="ml-4 font-medium text-slate-700 cursor-pointer text-sm">Day 2：強化正向回饋 (感受 Shine)</label>
+                        </div>
+                        <div class="flex items-center p-3 bg-slate-50 rounded-lg border border-slate-200 hover:border-teal-400 transition cursor-pointer">
+                            <input type="checkbox" id="d3" class="w-6 h-6 text-teal-600 rounded" onchange="updateTrophy()">
+                            <label for="d3" class="ml-4 font-medium text-slate-700 cursor-pointer text-sm">Day 3：觀察產能 (精神力的提升)</label>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center justify-center py-6">
+                        <div id="trophy" class="text-8xl mb-2 grayscale opacity-20 transition-all duration-700">🏆</div>
+                        <p id="trophyText" class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-2">Challenge Pending</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-8 rounded-2xl text-center mt-10">
+                    <h3 class="text-2xl font-bold mb-4 leading-relaxed">想要像上癮一樣愛上自律？</h3>
+                    <p class="text-slate-400 mb-8 leading-relaxed text-sm">
+                        這份 3 天計畫只是開端。在正式課程中，我將帶你運用深層心理學機制，建立一套能自動化運作、甚至在睡覺時也在幫你維持基礎代謝的資產系統。
+                    </p>
+                    <a href="https://www.instagram.com/life.guide007" target="_blank" class="inline-block bg-teal-500 hover:bg-teal-400 text-white font-bold py-4 px-12 rounded-full shadow-2xl transform transition hover:-translate-y-1 no-print">
+                        了解《強者心智》進階課程
+                    </a>
+                    <div class="mt-4 text-[10px] text-slate-600">IG 專屬諮詢: @life.guide007</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-100 py-10 text-center text-xs text-slate-400 no-print">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>© 2026 強者大腦健身心理學課程｜行為設計實驗室</p>
+            <p class="mt-2 italic font-light tracking-wide">「當你掌控了心智，你就掌控了全世界。」</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Management
+        function switchTab(tabId) {
+            document.querySelectorAll('.step-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-teal-600', 'font-bold', 'border-b-2', 'border-teal-500');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.add('text-teal-600', 'font-bold', 'border-b-2', 'border-teal-500');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Chart.js Logic
+        let coveyChart;
+        function initChart() {
+            const ctx = document.getElementById('coveyChart').getContext('2d');
+            coveyChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['關注圈 (內耗)', '影響圈 (行動)'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: ['#e2e8f0', '#14b8a6'],
+                        hoverBackgroundColor: ['#cbd5e1', '#0d9488'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: { size: 11 }
+                            }
+                        } 
+                    },
+                    cutout: '75%'
+                }
+            });
+        }
+
+        function updateChart() {
+            const w = document.getElementById('worryInput').value;
+            const a = document.getElementById('actionInput').value;
+            if(!w || !a) {
+                alert("請填寫內容後再執行能量轉換！");
+                return;
+            }
+            coveyChart.data.datasets[0].data = [30, 70];
+            coveyChart.update();
+            const cap = document.getElementById('chartCaption');
+            cap.innerHTML = "<span class='text-teal-600 font-bold'>典範轉移成功！</span> 行動力已獲得釋放，產能提升 4.6 倍。";
+        }
+
+        // Recipe Logic
+        function generateRecipe() {
+            const a = document.getElementById('anchorInput').value;
+            const b = document.getElementById('tinyBehaviorInput').value;
+            const c = document.getElementById('celebrationInput').value;
+            if(!b || !c) {
+                alert("請設計你的微行為與慶祝方式！");
+                return;
+            }
+            document.getElementById('resAnchor').innerText = a;
+            document.getElementById('resBehavior').innerText = b;
+            document.getElementById('resCelebration').innerText = c;
+            const card = document.getElementById('recipeCard');
+            card.classList.remove('hidden');
+            card.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Trophy Progress Logic
+        function updateTrophy() {
+            const d1 = document.getElementById('d1').checked;
+            const d2 = document.getElementById('d2').checked;
+            const d3 = document.getElementById('d3').checked;
+            const t = document.getElementById('trophy');
+            const txt = document.getElementById('trophyText');
+            let count = (d1?1:0) + (d2?1:0) + (d3?1:0);
+            
+            if(count === 3) {
+                t.classList.remove('grayscale', 'opacity-20');
+                t.classList.add('scale-110');
+                txt.innerText = "Challenge Complete! 🏆";
+                txt.classList.add('text-teal-600');
+            } else if(count > 0) {
+                t.classList.add('grayscale');
+                t.classList.remove('opacity-20');
+                t.classList.add('opacity-60');
+                txt.innerText = "Building Momentum...";
+                txt.classList.add('text-teal-600');
+            } else {
+                t.classList.add('grayscale', 'opacity-20');
+                t.classList.remove('scale-110', 'text-teal-600');
+                txt.innerText = "Challenge Pending";
+            }
+        }
+
+        // Export Function
+        function exportPDF() {
+            const sections = document.querySelectorAll('.step-content');
+            sections.forEach(s => s.classList.add('active'));
+            setTimeout(() => {
+                window.print();
+                switchTab('intro');
+            }, 500);
+        }
+
+        window.onload = function() {
+            initChart();
+            document.getElementById('btn-intro').classList.add('text-teal-600', 'font-bold', 'border-b-2', 'border-teal-500');
+        };
+    </script>
+</body>
+</html>
