@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>足弓自測 | cathyii 女性體態護理師</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --bg-card: #ede8de;
+      --bg-card2: #e8e2d6;
+      --navy: #2c3e50;
+      --gold: #c9a84c;
+      --gold-btn: #c9a84c;
+      --gold-btn-hover: #b8973e;
+      --text-main: #2c3e50;
+      --text-sub: #5a6a7a;
+      --text-light: #8a9aaa;
+      --border: #d8d0c0;
+      --warning: #e67e22;
+      --success: #27ae60;
+      --font-serif: 'Noto Serif TC', serif;
+      --font-sans: 'Noto Sans TC', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background-color: var(--navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .brand {
+      color: #fff;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+    nav a.ig-link {
+      color: #a0b0c0;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a.ig-link:hover { color: #fff; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── SCREEN 1: LANDING ── */
+    .badge {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.3;
+      color: var(--text-main);
+    }
+    h1 .highlight {
+      color: var(--gold);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 16px 0 28px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 28px;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+    }
+    .info-card .card-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+    .info-card p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+    .info-card p strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .steps-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--gold-btn);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--gold-btn-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--text-main); }
+
+    .cta-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 10px;
+    }
+
+    /* ── SCREEN 2: QUIZ ── */
+    .screen-label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quiz-hint {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+    }
+
+    .option-btn {
+      width: 100%;
+      background: var(--bg-card);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 12px;
+      text-align: left;
+      font-family: var(--font-sans);
+    }
+    .option-btn:hover {
+      border-color: var(--gold);
+      background: var(--bg-card2);
+    }
+
+    .foot-icon {
+      width: 48px;
+      height: 60px;
+      flex-shrink: 0;
+    }
+
+    .option-text .option-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .option-text .option-desc {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .quiz-footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ── SCREEN 3: RESULT ── */
+    .result-card {
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .result-card.normal { background: #e8f0e8; border-left: 4px solid var(--success); }
+    .result-card.flat   { background: #fdf0e0; border-left: 4px solid var(--warning); }
+    .result-card.high   { background: #fdf0e0; border-left: 4px solid var(--warning); }
+
+    .result-label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+    .result-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .info-box {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+    .info-box .box-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .info-box p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .cathy-box {
+      background: var(--bg-card2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .cathy-box .box-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .cathy-box p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .cta-section {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cta-section .cta-heading {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .cta-section .cta-sub {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+    }
+
+    .btn-ig {
+      display: block;
+      width: 100%;
+      padding: 15px 24px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-bottom: 8px;
+    }
+    .btn-ig:hover { background: #1a2a3a; }
+
+    .ig-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    .follow-box {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 14px 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .follow-box p {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+    .follow-box a {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .follow-box a:hover { text-decoration: underline; }
+
+    .disclaimer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: #a0b0c0;
+      text-align: center;
+      padding: 14px 24px;
+      font-size: 0.8rem;
+    }
+    footer a { color: #a0b0c0; text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ── SVG FOOT ICONS ── */
+    .foot-svg { width: 48px; height: 60px; }
+
+    @media (max-width: 480px) {
+      main { padding: 28px 16px; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">CATHYII ｜ 女性體態護理師</span>
+  <a class="ig-link" href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">@life.guide007</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <div class="container">
+
+    <!-- ══ SCREEN 1: LANDING ══ -->
+    <div id="screen-landing" class="screen active">
+      <p class="badge">足底筋膜炎自測</p>
+      <h1>你嘅足弓<br><span class="highlight">正在偷偷傷害你？</span></h1>
+      <p class="subtitle">
+        行半日街腳板痛、早起第一步像踩釘——<br>
+        九成人唔知道，問題根源係足弓。
+      </p>
+      <div class="divider"></div>
+
+      <div class="info-card">
+        <p class="card-title">呢個測試係咩？</p>
+        <p>「濕腳印法」——醫護界最常用嘅足弓初步評估方法。<br>
+        <strong>全程唔需要任何工具，只需要一張紙同一雙腳，30 秒即知你嘅足弓係咪出咗問題。</strong></p>
+      </div>
+
+      <ul class="steps-list">
+        <li><span class="step-num">01</span>將腳底打濕（洗完澡最好做）</li>
+        <li><span class="step-num">02</span>踩喺一張深色紙或紙板上</li>
+        <li><span class="step-num">03</span>自然企直，唔好刻意用力</li>
+        <li><span class="step-num">04</span>抬起腳，睇腳印形狀</li>
+      </ul>
+
+      <button class="btn-primary" onclick="showScreen('screen-quiz')">開始自測 →</button>
+      <p class="cta-note">免費・30秒完成・即時睇結果</p>
+    </div>
+
+    <!-- ══ SCREEN 2: QUIZ ══ -->
+    <div id="screen-quiz" class="screen">
+      <button class="btn-secondary" onclick="showScreen('screen-landing')">← 返回</button>
+      <p class="screen-label">對照你嘅腳印</p>
+      <h2>你嘅腳印係邊種？</h2>
+      <p class="quiz-hint">踩完之後，對照下面三種形狀，揀最似嗰個。</p>
+
+      <!-- Option 1: Normal -->
+      <button class="option-btn" onclick="showResult('normal')">
+        <svg class="foot-svg" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Normal foot: toes, front pad, arch gap, heel -->
+          <ellipse cx="10" cy="8" rx="4" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="18" cy="6" rx="4" ry="5.5" fill="#8a9aaa"/>
+          <ellipse cx="26" cy="7" rx="3.5" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="33" cy="9" rx="3" ry="4.5" fill="#8a9aaa"/>
+          <ellipse cx="39" cy="12" rx="2.5" ry="4" fill="#8a9aaa"/>
+          <path d="M6 14 Q4 22 5 30 Q6 36 8 40 Q12 46 18 48 Q26 50 32 46 Q38 42 40 36 Q42 30 40 24 Q38 18 34 16 Q28 14 22 14 Q14 14 6 14Z" fill="#8a9aaa"/>
+          <!-- arch gap -->
+          <path d="M6 28 Q8 34 12 36 Q8 32 7 28Z" fill="var(--bg)" opacity="0.9"/>
+          <ellipse cx="13" cy="50" rx="10" ry="7" fill="#8a9aaa"/>
+        </svg>
+        <div class="option-text">
+          <p class="option-title">✅ 中間有明顯缺口</p>
+          <p class="option-desc">腳印內側有清晰弧形空白，腳趾、腳掌前部、腳跟都有印，但內側中間係空嘅。</p>
+        </div>
+      </button>
+
+      <!-- Option 2: Flat -->
+      <button class="option-btn" onclick="showResult('flat')">
+        <svg class="foot-svg" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="10" cy="8" rx="4" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="18" cy="6" rx="4" ry="5.5" fill="#8a9aaa"/>
+          <ellipse cx="26" cy="7" rx="3.5" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="33" cy="9" rx="3" ry="4.5" fill="#8a9aaa"/>
+          <ellipse cx="39" cy="12" rx="2.5" ry="4" fill="#8a9aaa"/>
+          <!-- flat: full foot, no arch gap -->
+          <path d="M4 14 Q2 22 3 32 Q4 40 8 46 Q14 52 22 53 Q30 53 36 48 Q42 42 42 34 Q42 24 40 18 Q36 14 28 13 Q16 12 4 14Z" fill="#8a9aaa"/>
+          <ellipse cx="13" cy="50" rx="10" ry="6" fill="#8a9aaa"/>
+        </svg>
+        <div class="option-text">
+          <p class="option-title">⚠️ 幾乎係完整腳印</p>
+          <p class="option-desc">腳印內側幾乎冇缺口，整個腳底都有印，或只有非常窄嘅空白。</p>
+        </div>
+      </button>
+
+      <!-- Option 3: High arch -->
+      <button class="option-btn" onclick="showResult('high')">
+        <svg class="foot-svg" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="10" cy="8" rx="4" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="18" cy="6" rx="4" ry="5.5" fill="#8a9aaa"/>
+          <ellipse cx="26" cy="7" rx="3.5" ry="5" fill="#8a9aaa"/>
+          <ellipse cx="33" cy="9" rx="3" ry="4.5" fill="#8a9aaa"/>
+          <ellipse cx="39" cy="12" rx="2.5" ry="4" fill="#8a9aaa"/>
+          <!-- high arch: toes pad only -->
+          <path d="M6 14 Q4 18 5 22 Q8 20 14 18 Q22 16 30 16 Q36 16 40 18 Q40 16 38 14 Q30 12 20 12 Q12 12 6 14Z" fill="#8a9aaa"/>
+          <!-- heel only -->
+          <ellipse cx="14" cy="50" rx="10" ry="7" fill="#8a9aaa"/>
+        </svg>
+        <div class="option-text">
+          <p class="option-title">⚠️ 腳趾同腳跟分開</p>
+          <p class="option-desc">腳印只有腳趾根部同腳跟，中間幾乎冇連接，缺口非常大。</p>
+        </div>
+      </button>
+
+      <p class="quiz-footer">唔確定？揀最接近嗰個，結果只供參考。</p>
+    </div>
+
+    <!-- ══ SCREEN 3a: RESULT NORMAL ══ -->
+    <div id="screen-result-normal" class="screen">
+      <button class="btn-secondary" onclick="showScreen('screen-quiz')">← 重新測試</button>
+
+      <div class="result-card normal">
+        <p class="result-label">你嘅測試結果</p>
+        <p class="result-title">✅ 正常足弓</p>
+      </div>
+
+      <div class="info-box">
+        <p class="box-label">你需要知道</p>
+        <p>你嘅足弓結構良好，但唔代表可以掉以輕心。長時間站立、穿平底鞋或高跟鞋，都可能令足弓逐漸疲勞，日積月累都會出問題。</p>
+      </div>
+
+      <div class="cathy-box">
+        <p class="box-label">CATHY 建議</p>
+        <p>建議每日做 1 分鐘足底筋膜放鬆，預防勝於治療。想知點做？去我 IG 睇完整教學。</p>
+      </div>
+
+      <div class="cta-section">
+        <p class="cta-heading">想知道點樣改善？</p>
+        <p class="cta-sub">我嘅 Reels 入面有 2 個 10 秒動作，即刻去睇！</p>
+        <a class="btn-ig" href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">去 IG 睇完整教學 →</a>
+        <p class="ig-note">@life.guide007・留言「test」即時 DM 你</p>
+      </div>
+
+      <div class="follow-box">
+        <p>想了解更多痛症知識？</p>
+        <a href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">Follow @life.guide007 ↗</a>
+      </div>
+
+      <p class="disclaimer">⚠️ 此測試供初步參考，並非正式醫療診斷。<br>如有持續痛症，請諮詢醫療專業人員。</p>
+    </div>
+
+    <!-- ══ SCREEN 3b: RESULT FLAT ══ -->
+    <div id="screen-result-flat" class="screen">
+      <button class="btn-secondary" onclick="showScreen('screen-quiz')">← 重新測試</button>
+
+      <div class="result-card flat">
+        <p class="result-label">你嘅測試結果</p>
+        <p class="result-title">⚠️ 扁平足（足弓塌陷）</p>
+      </div>
+
+      <div class="info-box">
+        <p class="box-label">你需要知道</p>
+        <p>你嘅足弓支撐力不足，每行一步，足底筋膜都承受額外拉力。長期下去，足跟痛、膝蓋痛、甚至腰背痛都會陸續出現。</p>
+      </div>
+
+      <div class="cathy-box">
+        <p class="box-label">CATHY 建議</p>
+        <p>唔係叫你唔好行路，係你需要即刻開始做足弓強化訓練＋選擇有足弓支撐嘅鞋款。我嘅 Reels 有教 2 個 10 秒動作，即刻去睇！</p>
+      </div>
+
+      <div class="cta-section">
+        <p class="cta-heading">想知道點樣改善？</p>
+        <p class="cta-sub">我嘅 Reels 入面有 2 個 10 秒動作，即刻去睇！</p>
+        <a class="btn-ig" href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">去 IG 睇完整教學 →</a>
+        <p class="ig-note">@life.guide007・留言「test」即時 DM 你</p>
+      </div>
+
+      <div class="follow-box">
+        <p>想了解更多痛症知識？</p>
+        <a href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">Follow @life.guide007 ↗</a>
+      </div>
+
+      <p class="disclaimer">⚠️ 此測試供初步參考，並非正式醫療診斷。<br>如有持續痛症，請諮詢醫療專業人員。</p>
+    </div>
+
+    <!-- ══ SCREEN 3c: RESULT HIGH ARCH ══ -->
+    <div id="screen-result-high" class="screen">
+      <button class="btn-secondary" onclick="showScreen('screen-quiz')">← 重新測試</button>
+
+      <div class="result-card high">
+        <p class="result-label">你嘅測試結果</p>
+        <p class="result-title">⚠️ 高弓足（足弓過高）</p>
+      </div>
+
+      <div class="info-box">
+        <p class="box-label">你需要知道</p>
+        <p>你嘅足弓過高，腳底接觸地面嘅面積細，衝擊力集中喺腳跟同腳趾球。長期下去容易出現足底筋膜炎、腳趾變形同膝蓋外側痛。</p>
+      </div>
+
+      <div class="cathy-box">
+        <p class="box-label">CATHY 建議</p>
+        <p>高弓足需要加強腳踝穩定性同選擇有足夠緩衝嘅鞋款。我嘅 Reels 有教具體改善動作，即刻去睇！</p>
+      </div>
+
+      <div class="cta-section">
+        <p class="cta-heading">想知道點樣改善？</p>
+        <p class="cta-sub">我嘅 Reels 入面有 2 個 10 秒動作，即刻去睇！</p>
+        <a class="btn-ig" href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">去 IG 睇完整教學 →</a>
+        <p class="ig-note">@life.guide007・留言「test」即時 DM 你</p>
+      </div>
+
+      <div class="follow-box">
+        <p>想了解更多痛症知識？</p>
+        <a href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">Follow @life.guide007 ↗</a>
+      </div>
+
+      <p class="disclaimer">⚠️ 此測試供初步參考，並非正式醫療診斷。<br>如有持續痛症，請諮詢醫療專業人員。</p>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>cathyii ｜ 女性體態護理師 ・ </span>
+  <a href="https://www.instagram.com/life.guide007" target="_blank" rel="noopener">@life.guide007</a>
+</footer>
+
+<script>
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showResult(type) {
+    showScreen('screen-result-' + type);
+  }
+</script>
+
+</body>
+</html>
