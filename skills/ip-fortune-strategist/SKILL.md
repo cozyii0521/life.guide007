@@ -45,4 +45,5 @@ description: 結合中西命理（八字、紫微、占星、靈數）為個人 
 - 參閱 `references/reels_strategy.md` 了解 Reels 爆款公式與 Slogan 量化邏輯。
 - 參閱 `references/reels_advanced_strategy.md` 了解 13 個爆款元素　25 個短片文案結構公式，以及從課程影片中提取的實戰技巧（如 Hook 設計、節奏控制）。特別注意 **Hook 必須「一條線到底」**，避免資訊貪心，並善用**素材搭位原則**將不適合 Hook 的痛點場景移至 CTA 作為好處對比。「第四章：Reels 數據診斷框架」（實戰案例提煉）包含六大指標健康基準、「被低估的健康乾貨」類型識別、視覺Hook四種類型、CTA三重目的框架，以及片長與完播率的關係表。**評估任何一條 Reels 的表現時，必須先參閱此診斷框架。**
 - 參閱 `references/cathyii_reels_diagnosis.md` 了解 @life.guide007 帳號的真實數據診斷案例庫。**第十三章（2026年6月複盤）** 包含：帳號現況快照、Jacky Q&A 老師核心指引（流量池優先順序、Hook 評估標準、渠道角色分工）、Reels 製作升級標準（8項強制自我檢查清單）、Carousel 貼文策略（新增）、Story 運營策略（三種高效類型）、現階段禁止事項，以及產品路線圖對應的內容策略。**在為 Cathy 規劃任何 IG 內容策略時，必須先參閱此章節。**
+- 參閱 `references/series_finale_framework.md` 了解系列收尾集的職責定義、體感落地法、跨集一致性檢查、反直覺解法結構，以及變現時機分層策略（14.6.2026 提煉自 EP5 對話）。**為系列最後一集生成腳本時必須參閱。**
 - 使用 `templates/report_template.md` 生成標準化的戰略報告.
